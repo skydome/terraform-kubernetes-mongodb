@@ -101,7 +101,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
           name = "config"
 
           config_map {
-            name = "mongodb-replicaset-mongodb"
+            name = "${var.name}-mongodb-replicaset-mongodb"
           }
         }
 
@@ -109,7 +109,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
           name = "init"
 
           config_map {
-            name         = "mongodb-replicaset-init"
+            name         = "${var.name}-mongodb-replicaset-init"
             default_mode = "0755"
           }
         }
@@ -166,10 +166,10 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
           args    = ["-on-start=/init/on-start.sh", "-service=$(POD_NAME)-mongodb-replicaset"]
 
           env {
-            name  = "POD_NAME"
-            value = "${var.name}"
+            name   = "POD_NAME"
+            value  = "${var.name}"
           }
-
+          
           env {
             name = "POD_NAMESPACE"
 
