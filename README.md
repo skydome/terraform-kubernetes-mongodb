@@ -5,10 +5,11 @@ Tested on GKE but it should work for any kubernetes cluster given the right terr
 
 ## Inputs
 
-- **name**          : name of the deployment
-- **namespace**     : kubernetes namespace to be deployed
-- **replicacount**  : replica instance count
-
+- **name**               : name of the deployment
+- **namespace**          : kubernetes namespace to be deployed
+- **replicacount**       : replica instance count
+- **storage_size**       : disk size to be requested for each mongodb replica (i.e. "64Gi")
+- **storage_class_name** : kubernetes storage class to be used for mongodb persistence
 
 ## Dependencies
 

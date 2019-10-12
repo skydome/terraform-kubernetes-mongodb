@@ -4,7 +4,7 @@ resource "kubernetes_config_map" "mongodb_replicaset_init" {
     namespace = "${var.namespace}"
 
     labels = {
-      app = "mongodb-replicaset"
+      app     = "mongodb-replicaset"
       release = "${var.name}"
     }
   }
@@ -20,7 +20,7 @@ resource "kubernetes_config_map" "mongodb_replicaset_mongodb" {
     namespace = "${var.namespace}"
 
     labels = {
-      app = "mongodb-replicaset"
+      app     = "mongodb-replicaset"
       release = "${var.name}"
     }
   }
@@ -36,7 +36,7 @@ resource "kubernetes_service" "mongodb_replicaset" {
     namespace = "${var.namespace}"
 
     labels = {
-      app = "mongodb-replicaset"
+      app     = "mongodb-replicaset"
       release = "${var.name}"
     }
 
@@ -52,7 +52,7 @@ resource "kubernetes_service" "mongodb_replicaset" {
     }
 
     selector = {
-      app = "mongodb-replicaset"
+      app     = "mongodb-replicaset"
       release = "${var.name}"
     }
 
@@ -68,7 +68,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
     namespace = "${var.namespace}"
 
     labels = {
-      app = "mongodb-replicaset"
+      app     = "mongodb-replicaset"
       release = "${var.name}"
     }
   }
@@ -78,7 +78,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
 
     selector {
       match_labels = {
-        app = "mongodb-replicaset"
+        app     = "mongodb-replicaset"
         release = "${var.name}"
       }
     }
@@ -166,10 +166,10 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
           args    = ["-on-start=/init/on-start.sh", "-service=$(POD_NAME)-mongodb-replicaset"]
 
           env {
-            name   = "POD_NAME"
-            value  = "${var.name}"
+            name  = "POD_NAME"
+            value = "${var.name}"
           }
-          
+
           env {
             name = "POD_NAMESPACE"
 
@@ -283,11 +283,12 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
       }
 
       spec {
-        access_modes = ["ReadWriteOnce"]
+        access_modes       = ["ReadWriteOnce"]
+        storage_class_name = "${var.storage_class_name}"
 
         resources {
           requests = {
-            storage = "10Gi"
+            storage = "${var.storage_size}"
           }
         }
       }
