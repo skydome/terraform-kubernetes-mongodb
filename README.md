@@ -23,4 +23,4 @@ Terraform Kubernetes Provider
 
 ## Credits
 
-This module was initially generated from helm/stable/mongodb-replicaset via (k2tf)[https://github.com/sl1pm4t/k2tf] project.
+This module was initially generated from helm/stable/mongodb-replicaset via [k2tf](https://github.com/sl1pm4t/k2tf) project.
