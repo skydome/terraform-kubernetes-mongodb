@@ -240,6 +240,18 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
             mount_path = "/work-dir"
           }
 
+          resources {
+            limits     = {
+              cpu    = var.limit_cpu
+              memory = var.limit_mem
+            }
+
+            requests = {
+              cpu    = var.request_cpu
+              memory = var.request_mem
+            }
+          }
+
           liveness_probe {
             exec {
               command = ["mongo", "--eval", "db.adminCommand('ping')"]
