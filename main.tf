@@ -1,11 +1,11 @@
 resource "kubernetes_config_map" "mongodb_replicaset_init" {
   metadata {
     name      = "${var.name}-mongodb-replicaset-init"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
 
     labels = {
       app     = "mongodb-replicaset"
-      release = "${var.name}"
+      release = var.name
     }
   }
 
@@ -17,11 +17,11 @@ resource "kubernetes_config_map" "mongodb_replicaset_init" {
 resource "kubernetes_config_map" "mongodb_replicaset_mongodb" {
   metadata {
     name      = "${var.name}-mongodb-replicaset-mongodb"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
 
     labels = {
       app     = "mongodb-replicaset"
-      release = "${var.name}"
+      release = var.name
     }
   }
 
@@ -33,11 +33,11 @@ resource "kubernetes_config_map" "mongodb_replicaset_mongodb" {
 resource "kubernetes_service" "mongodb_replicaset" {
   metadata {
     name      = "${var.name}-mongodb-replicaset"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
 
     labels = {
       app     = "mongodb-replicaset"
-      release = "${var.name}"
+      release = var.name
     }
 
     annotations = {
@@ -53,7 +53,7 @@ resource "kubernetes_service" "mongodb_replicaset" {
 
     selector = {
       app     = "mongodb-replicaset"
-      release = "${var.name}"
+      release = var.name
     }
 
     cluster_ip                  = "None"
@@ -65,21 +65,21 @@ resource "kubernetes_service" "mongodb_replicaset" {
 resource "kubernetes_stateful_set" "mongodb_replicaset" {
   metadata {
     name      = "${var.name}-mongodb-replicaset"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
 
     labels = {
       app     = "mongodb-replicaset"
-      release = "${var.name}"
+      release = var.name
     }
   }
 
   spec {
-    replicas = "${var.replicacount}"
+    replicas = var.replicacount
 
     selector {
       match_labels = {
         app     = "mongodb-replicaset"
-        release = "${var.name}"
+        release = var.name
       }
     }
 
@@ -88,7 +88,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
         labels = {
           app = "mongodb-replicaset"
 
-          release = "${var.name}"
+          release = var.name
         }
 
         annotations = {
@@ -167,7 +167,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
 
           env {
             name  = "POD_NAME"
-            value = "${var.name}"
+            value = var.name
           }
 
           env {
@@ -284,7 +284,7 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
 
       spec {
         access_modes       = ["ReadWriteOnce"]
-        storage_class_name = "${var.storage_class_name}"
+        storage_class_name = var.storage_class_name
 
         resources {
           requests = {
@@ -297,4 +297,3 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
     service_name = "${var.name}-mongodb-replicaset"
   }
 }
-
