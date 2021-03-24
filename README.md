@@ -1,7 +1,7 @@
 # terraform-kubernetes-mongodb
 MongoDB on Kubernetes
 
-Tested on GKE but it should work for any kubernetes cluster given the right terraform-provider-kubernetes setup.
+Tested on GKE and AKS but it should work for any kubernetes cluster given the right terraform-provider-kubernetes setup.
 
 ## Inputs
 
@@ -10,6 +10,10 @@ Tested on GKE but it should work for any kubernetes cluster given the right terr
 - **replicacount**       : replica instance count
 - **storage_size**       : disk size to be requested for each mongodb replica (i.e. "64Gi")
 - **storage_class_name** : kubernetes storage class to be used for mongodb persistence
+- **request_cpu**:       : the CPU request value (i.e. "250m")
+- **request_mem**:       : the memory request value (i.e. "1Gi")
+- **limit_cpu**:       : the CPU limit value (i.e. "1" core)
+- **limit_mem**:       : the memory limit value (i.e. "2Gi")
 
 ## Dependencies
 
